@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+	<Appenders>
+
+		<Console name="Console" target="SYSTEM_OUT">
+			<!-- %d- date, %t- thread name, %p is for logging priority level(-5 is 
+				for justification) %C for class name, %M for method name,%m is for message 
+				nd %n is for new line -->
+			<PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5p %C %M- %m%n" />
+		</Console>
+		<!-- <File name="File" fileName="courseapp1.log"> <PatternLayout pattern="%d{HH:mm:ss.SSS} 
+			[%t] %-5p %C - %m%n"/> </File> -->
+		<RollingFile name="RollingFile" fileName="logs/courseapp1.log"
+			filePattern="logs/$${date:yyyy-MM}/courseapp1-%d{MM-dd-yyyy}-%i.log.gz">
+			<PatternLayout>
+				<Pattern>%d{HH:mm:ss.SSS} [%t] %-5p %C - %m%n</Pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+		</RollingFile>
+
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console" />
+			<AppenderRef ref="RollingFile" />
+		</Root>
+	</Loggers>
+</Configuration>
