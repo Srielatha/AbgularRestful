@@ -16,10 +16,8 @@ public interface CourseService {
 
 	public void deleteCourse(Long courseId) throws Exception;
 
-	Topic updateTopic(Topic topic) throws Exception;
+	public Topic updateTopic(Topic topic) throws Exception;
 
-	void deleteTopic(Long topicId) throws Exception;
-
-	public Topic createCourse(Topic topic) throws Exception;
+	public void deleteTopic(Long topicId) throws Exception;
 
 }

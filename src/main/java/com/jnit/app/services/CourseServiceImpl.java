@@ -30,7 +30,7 @@ public class CourseServiceImpl implements CourseService {
 		return courseRepository.save(course);
 	}
 
-	public List<Course> getAllCouses() throws Exception {
+	public List<Course> getAllCourses() throws Exception {
 		return courseRepository.findAll();
 	}
 
@@ -58,17 +58,6 @@ public class CourseServiceImpl implements CourseService {
 		}
 		courseRepository.delete(topicId);
 
-	}
-
-	@Override
-	public List<Course> getAllCourses() throws Exception {
-		return null;
-	}
-
-	@Override
-	public Topic createCourse(Topic topic) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

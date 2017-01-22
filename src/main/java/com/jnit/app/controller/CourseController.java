@@ -4,7 +4,6 @@ import java.time.ZoneOffset;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ import com.jnit.app.services.CourseService;
 
 @RestController
 @RequestMapping("courses")
-public class HomeController {
+public class CourseController {
 	@Autowired
 	private CourseService courseService;
 
@@ -51,16 +50,6 @@ public class HomeController {
 	public Course update(@RequestBody Course course) throws Exception {
 		return courseService.updateCourse(course);
 	}
-
-//	public Topic create(@Valid @RequestBody Topic topic) throws Exception {
-//		return courseService.createCourse(topic);
-//	}
-//
-//	@DeleteMapping(path = "/{topicId}")
-//	public ResponseEntity<HttpStatus> deleteTopic(@PathVariable Long topicId) throws Exception {
-//		courseService.deleteTopic(topicId);
-//		return ResponseEntity.status(HttpStatus.OK).build();
-//	}
 
 	@DeleteMapping(path = "/{courseId}")
 	public ResponseEntity<HttpStatus> deleteCourse(@PathVariable Long courseId) throws Exception {
