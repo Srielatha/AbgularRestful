@@ -56,7 +56,15 @@ public class CourseServiceImpl implements CourseService {
 		if (course == null) {
 			throw new Exception("sorry the given topicId-" + topicId + "is not found");
 		}
-		courseRepository.delete(topicId);
+		Topic topicToDelete = null;
+		for (Topic topic : course.getTopics()) {
+			if (topic.getTopicId().equals(topicId)) {
+				topicToDelete = topic;
+				break;
+			}
+		}
+		course.getTopics().remove(topicToDelete);
+		courseRepository.save(course);
 
 	}
 

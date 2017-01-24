@@ -65,7 +65,7 @@ public class Course implements Serializable {
 	@NotBlank(message = "type can not be blank")
 	private String type;
 	@JsonIgnore
-	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH }, fetch = FetchType.EAGER)
 	@JoinTable(name = "course_user", joinColumns = @JoinColumn(name = "course_id", referencedColumnName = "courseId"), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "userId"))
 	private List<User> registeredUsers = new ArrayList<>();
 	@Transient

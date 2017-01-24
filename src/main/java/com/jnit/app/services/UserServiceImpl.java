@@ -12,7 +12,7 @@ import com.jnit.app.model.User;
 import com.jnit.app.repositories.UserRepository;
 
 @Service
-@Transactional // (propagation=Propagation.REQUIRED)
+@Transactional
 public class UserServiceImpl implements UserService {
 
 	@Autowired

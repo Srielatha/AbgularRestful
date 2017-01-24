@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Aspect
-public class LoggingAspect {
+public class Logging {
 	@Before("execution(* com.services.UserService.*(..))")
 	public void executeBeforeUserServiceCall(JoinPoint jp) {
 		System.out.println("Started executing " + jp.getSignature().getName());
