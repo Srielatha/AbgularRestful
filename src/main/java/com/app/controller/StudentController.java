@@ -1,4 +1,4 @@
-package com.jnit.app.controller;
+package com.app.controller;
 
 import java.time.ZoneOffset;
 import java.util.List;
@@ -19,41 +19,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jnit.app.model.Course;
-import com.jnit.app.model.Topic;
-import com.jnit.app.services.CourseService;
+import com.app.model.Student;
+import com.app.services.StudentService;
 
 @RestController
-@RequestMapping("courses")
-public class CourseController {
+@RequestMapping("student")
+public class StudentController {
 	@Autowired
-	private CourseService courseService;
+	private StudentService studentService;
 
 	@GetMapping
-	public List<Course> getAllCourses() throws Exception {
-		return courseService.getAllCourses();
+	public List<Student> getAllStudents() throws Exception {
+		return studentService.getAllStudents();
 	}
 
-	@GetMapping("/{courseId}")
-	public ResponseEntity<Course> getCourse(@PathVariable("courseId") Long courseId) throws Exception {
-		Course course = courseService.getCourseById(courseId);
+	@GetMapping("/{studentId}")
+	public ResponseEntity<Student> getStudent(@PathVariable("studentId") Long studentId) throws Exception {
+		Student student = studentService.getStudentById(studentId);
 		return ResponseEntity.ok().cacheControl(CacheControl.maxAge(2, TimeUnit.MINUTES).cachePrivate())
-				.lastModified(course.getUpdatedDateTime().toInstant(ZoneOffset.UTC).toEpochMilli()).body(course);
+				.lastModified(student.getUpdatedDateTime().toInstant(ZoneOffset.UTC).toEpochMilli()).body(student);
 	}
 
 	@PostMapping
-	public Course create(@Valid @RequestBody Course course) throws Exception {
-		return courseService.createCourse(course);
+	public Student create(@Valid @RequestBody Student student) throws Exception {
+		return studentService.createStudent(student);
 	}
 
-	@PutMapping
-	public Course update(@RequestBody Course course) throws Exception {
-		return courseService.updateCourse(course);
+	@PutMapping("/{studentId}")
+	public Student update(@RequestBody Student student) throws Exception {
+		return studentService.updateStudent(student);
 	}
 
-	@DeleteMapping(path = "/{courseId}")
-	public ResponseEntity<HttpStatus> deleteCourse(@PathVariable Long courseId) throws Exception {
-		courseService.deleteCourse(courseId);
+	@DeleteMapping(path = "/{studentId}")
+	public ResponseEntity<HttpStatus> deleteStudent(@PathVariable Long studentId) throws Exception {
+		studentService.deleteStudent(studentId);
 		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 

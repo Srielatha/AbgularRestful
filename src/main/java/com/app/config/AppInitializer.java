@@ -1,4 +1,4 @@
-package com.jnit.app.config;
+package com.app.config;
 
 import java.util.EnumSet;
 

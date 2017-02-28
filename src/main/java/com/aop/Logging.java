@@ -1,4 +1,4 @@
-package com.jnit.aop;
+package com.aop;
 
 import java.util.Arrays;
 

@@ -1,14 +1,16 @@
-package com.jnit.app.config;
+package com.app.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.Ordered;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -17,7 +19,7 @@ import org.springframework.web.servlet.view.xml.MappingJackson2XmlView;
 @Configuration
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "com.jnit.app.*" })
+@ComponentScan(basePackages = { "com.app.*" })
 @Import({ JpaConfig.class, SwaggerConfig.class })
 public class AppConfig extends WebMvcConfigurerAdapter {
 
@@ -40,6 +42,13 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	public void addCorsMappings(CorsRegistry registry) {
 		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE")
 				.allowedHeaders("*");
+	}
+
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/").setViewName("forward:/index.html");
+		registry.setOrder(Ordered.HIGHEST_PRECEDENCE);
+		super.addViewControllers(registry);
 	}
 
 }

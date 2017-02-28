@@ -1,4 +1,4 @@
-package com.jnit.app.config;
+package com.app.config;
 
 import java.beans.PropertyVetoException;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = { "com.jnit.app.repositories" })
+@EnableJpaRepositories(basePackages = { "com.app.repositories" })
 @PropertySources({ @PropertySource("classpath:connection.properties") })
 public class JpaConfig {
 
@@ -47,7 +47,7 @@ public class JpaConfig {
 		lef.setDataSource(dataSource());
 		lef.setJpaPropertyMap(jpaProperties());
 		lef.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-		lef.setPackagesToScan("com.jnit.app.model");
+		lef.setPackagesToScan("com.app.model");
 		lef.afterPropertiesSet();
 		return lef.getObject();
 	}
