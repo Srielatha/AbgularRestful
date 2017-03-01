@@ -21,9 +21,14 @@
 </head>
 <body>
 
+	<div data-pagination="" data-num-pages="numPages()"
+		data-current-page="currentPage" data-max-size="maxSize"
+		data-boundary-links="true"></div>
 
 
 	</nav>
+
+	<div ng-view></div>
 	<div class="container" ng-controller="AppCtrl">
 		<h1>Welcome to Student Management System</h1>
 		<table class="table">
@@ -58,15 +63,11 @@
 					<td><button class="btn btn-warning"
 							ng-click="edit(student.studentId)">Edit</button></td>
 				</tr>
+
+
 			</tbody>
 		</table>
 	</div>
-
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script> -->
-
-
-
-
 
 </body>
 </html>

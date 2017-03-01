@@ -6,7 +6,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 
 	var refresh = function(){
 
-		$http.get('http://localhost:8080/Nextgear/student').success(function(response) {
+		$http.get('http://localhost:8081/Nextgear/student').success(function(response) {
 			console.log(response);
 			$scope.studentList = response;
 			$scope.student = "";
@@ -19,7 +19,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 	$scope.addContact = function() {
 
 			console.log($scope.student);
-			$http.post('http://localhost:8080/Nextgear/student', $scope.student).success(function(response) {
+			$http.post('http://localhost:8081/Nextgear/student', $scope.student).success(function(response) {
 				refresh();
 			});
 		};
@@ -27,7 +27,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 		console.log(id);
 	    var confirm = window.confirm("Do you want to delete this?");
 		if (confirm) {
-			$http.delete('http://localhost:8080/Nextgear/student/'+id).success(function(response) {
+			$http.delete('http://localhost:8081/Nextgear/student/'+id).success(function(response) {
 				refresh();
 			});
 		}
@@ -37,7 +37,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 	$scope.edit = function(id) {
 		console.log(id);
       
-		$http.get('http://localhost:8080/Nextgear/student/'+id).success(function(response) {
+		$http.get('http://localhost:8081/Nextgear/student/'+id).success(function(response) {
 
 			console.log(response);
 			$scope.student = response;
@@ -49,7 +49,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 	$scope.update = function() {
 		console.log($scope.studentId);
 
-		$http.put('http://localhost:8080/Nextgear/student/'+$scope.studentId, $scope.student).success(function(response) {
+		$http.put('http://localhost:8081/Nextgear/student/'+$scope.studentId, $scope.student).success(function(response) {
 			refresh();
 		});
 	}
@@ -57,5 +57,7 @@ myApp.controller("AppCtrl", ['$scope', '$http', function($scope, $http) {
 	$scope.clear = function() {
 		$scope.student = "";
 	}
+	
+
 
 }]);
