@@ -1,5 +1,6 @@
-/*pipeline {
+pipeline {
     //agent { node { label 'docker' } }
+    agent any
 
 triggers {
     githubPush()
@@ -35,9 +36,9 @@ triggers {
 
         }
     }
-} */
+}
 
-properties([pipelineTriggers([githubPush()])])
+/*properties([pipelineTriggers([githubPush()])])
 
 node {
         git url: 'https://github.com/Srielatha/AngularRestful.git',branch: 'master'
@@ -57,4 +58,4 @@ node {
                 echo "deployment completed"
                         }
             }
-}
+} */
