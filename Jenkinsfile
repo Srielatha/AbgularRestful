@@ -14,7 +14,6 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                //gradleBuild image: 'dtr.cdl.es.ad.adp.com/innerspace/gradle:6.0.1',
                  cmd: 'clean build'
             }
         }
