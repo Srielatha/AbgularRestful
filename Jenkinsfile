@@ -1,6 +1,9 @@
 pipeline {
     //agent { node { label 'docker' } }
 
+triggers {
+    githubPush()
+  }
     parameters {
         choice(name: 'stageparam', choices: ['build', 'deploy-ICP', 'deploy-EKS-AIM-VPC', 'deploy-EKS-ES-VPC-DIT', 'deploy-EKS-ES-VPC-FIT', 'deploy-EKS-ES-VPC-IPE', 'deploy-EKS-ES-VPC-IAT'], description: 'Build and test only or build,test, and deploy in specific environments')
     }
