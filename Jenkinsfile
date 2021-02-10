@@ -6,7 +6,6 @@ pipeline {
     githubPush()
     }
 
-
     parameters {
         choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
     }
