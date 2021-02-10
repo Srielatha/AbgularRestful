@@ -23,24 +23,9 @@ pipeline {
             steps {
                 script {
                     if (stageparam == "deploy-ICP") {
-                        kubeDeploy cluster: 'icp-aws-ue1-dev2-aim.us-east-1.nexgen-nonprod.aws.adp',
-                            namespace: 'aes',
-                            envName: 'dit',
-                            credentialsId: 'aim-devops',
-                            helmChart: 'ferris-wheel/web-service',
-                            helmChartValues: ['values.yaml'],
-                            projectModel: [name: 'adp-enterprise-search-service', version: 'latest']
+
                     } else if (stageparam == "deploy-EKS-AIM-VPC") {
-                        kubeDeploy cloudctlImage: 'dtr.cdl.es.ad.adp.com/innerspace/cloudctl:3.2.1-helm3',
-                            cluster: 'es-nonprod-01',
-                            region: 'us-east-1',
-                            envName: 'dit',
-                            role: 'arn:aws:iam::711283292668:role/AWS-PowerUsers',
-                            namespace: 'aes-dcc-dit',
-                            credentialsId: 'aim-devops',
-                            helmChart: 'ferris-wheel/web-service',
-                            helmChartValues: ['values1.yaml'],
-                            projectModel: [name: 'adp-enterprise-search-service', version: 'latest']
+
                     }
                 }
             }
