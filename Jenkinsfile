@@ -26,6 +26,7 @@ pipeline {
 
                     } else if (stageparam == "deploy-EKS-AIM-VPC") {
 
+                    } else if (stageparam == "deploy-EKS-AIM-VP") {
                     }
                 }
             }
