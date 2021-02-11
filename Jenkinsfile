@@ -22,7 +22,6 @@ pipeline {
                }
         stage('build') {
             steps {
-                 //properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
                  echo "build"
                  echo env.BRANCH_NAME
             }
