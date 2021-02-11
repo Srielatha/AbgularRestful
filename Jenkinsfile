@@ -2,9 +2,9 @@ pipeline {
 
     agent any
 
-    triggers {
+    /*triggers {
       githubPush()
-    }
+    }*/
 
     triggers {
             pollSCM('') //Empty quotes tells it to build on a push
