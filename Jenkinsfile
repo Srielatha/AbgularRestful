@@ -5,6 +5,8 @@ pipeline {
 triggers {
     githubPush()
   }
+
+
     parameters {
         choice(name: 'stageparam', choices: ['build', 'deploy-ICP', 'deploy-EKS-AIM-VPC', 'deploy-EKS-ES-VPC-DIT', 'deploy-EKS-ES-VPC-FIT', 'deploy-EKS-ES-VPC-IPE', 'deploy-EKS-ES-VPC-IAT'], description: 'Build and test only or build,test, and deploy in specific environments')
     }
@@ -14,28 +16,27 @@ triggers {
             steps {
                  //cmd: 'clean build'
                  echo "building"
+                 echo env.BRANCH_NAME
             }
         }
 
         stage('Deploy') {
+            when {
+              beforeAgent true
+              branch 'master'
+            }
             steps {
                 script {
+                    def pass = passwordParameter description: "Enter password"
                     if (stageparam == "deploy-ICP") {
-                          if(env.BRANCH_NAME == "master") {
-                                echo "deploying"
-                                echo env.BRANCH_NAME
-                          }
+                                         echo "deploying"
 
                     } else if (stageparam == "deploy-EKS-AIM-VPC") {
 
-                         if(env.BRANCH_NAME == "origin/*") {
-                                                                  echo "deploying"
-                                                                 }
+                        pass;
                     } else if (stageparam == "deploy-EKS-AIM-VP") {
 
-                    if(env.BRANCH_NAME == "feature/*") {
-                                                             echo "deploying"
-                                                            }
+
                     }
                 }
             }
@@ -43,25 +44,3 @@ triggers {
         }
     }
 }
-
-/*properties([pipelineTriggers([githubPush()])])
-
-node {
-        git url: 'https://github.com/Srielatha/AngularRestful.git',branch: 'master'
-        stage ('Compile Stage') {
-
-            echo "compiling"
-            echo "compilation completed"
-        }
-
-        stage ('Testing Stage') {
-
-            echo "testing completed"
-            echo "testing completed"
-        }
-        stage("Deploy") {
-
-                echo "deployment completed"
-                        }
-            }
-} */
