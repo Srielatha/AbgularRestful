@@ -8,7 +8,7 @@ githubPush()
 
 
 parameters {
-    choice(name: 'DeployEnv', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
+    choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
 }
 
 stages {
@@ -27,11 +27,11 @@ stages {
         steps {
             script {
                 //def pass = passwordParameter description: "Enter password"
-                if (DeployEnv == "deploy-dev") {
+                if (stageparam == "deploy-dev") {
                    echo "deploying"
-                } else if (DeployEnv == "deploy-devAuto") {
+                } else if (stageparam == "deploy-devAuto") {
                    echo "deploying"
-                } else if (DeployEnv == "deploy-devBA") {
+                } else if (stageparam == "deploy-devBA") {
                   echo "deploying"
                 }
             }
