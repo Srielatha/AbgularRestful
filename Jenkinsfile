@@ -2,7 +2,11 @@ pipeline {
 
     agent any
 
-   triggers {
+    /*triggers {
+      githubPush()
+    }*/
+
+    triggers {
             pollSCM('') //Empty quotes tells it to build on a push
     }
 
@@ -14,9 +18,7 @@ pipeline {
         stage('build') {
             steps {
                  //properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
-                 /*triggers {
-                       githubPush()
-                     }*/
+
                  echo "build"
                  echo env.BRANCH_NAME
             }
