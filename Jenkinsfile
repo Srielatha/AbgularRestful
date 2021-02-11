@@ -23,7 +23,7 @@ triggers {
         stage('Deploy') {
             when {
               beforeAgent true
-              branch 'master'
+              branch 'feature/app'
             }
             steps {
                 script {
