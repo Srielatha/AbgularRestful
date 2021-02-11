@@ -22,17 +22,17 @@ stages {
     stage('Deploy') {
         when {
           beforeAgent true
-          branch 'feature/app'
+          branch 'master'
         }
         steps {
             script {
-                def pass = passwordParameter description: "Enter password"
+                //def pass = passwordParameter description: "Enter password"
                 if (Deploy-Env == "deploy-dev") {
-                   echo "deploying it to ${Deploy-Env}"
+                   echo "deploying"
                 } else if (Deploy-Env == "deploy-devAuto") {
-                   echo "deploying it to ${Deploy-Env}"
+                   echo "deploying"
                 } else if (Deploy-Env == "deploy-devBA") {
-                  echo "deploying it to ${Deploy-Env}"
+                  echo "deploying"
                 }
             }
         }
