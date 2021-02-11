@@ -16,6 +16,10 @@ pipeline {
     }
 
     stages {
+         stage('Checkout'){
+
+                  checkout scm
+               }
         stage('build') {
             steps {
                  //properties([pipelineTriggers([[$class: 'GitHubPushTrigger'], pollSCM('H/15 * * * *')])])
