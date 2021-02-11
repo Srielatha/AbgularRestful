@@ -8,7 +8,7 @@ githubPush()
 
 
 parameters {
-    choice(name: 'Deploy-Env', choices: ['deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
+    choice(name: 'Deploy-Env', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
 }
 
 stages {
