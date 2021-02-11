@@ -6,10 +6,6 @@ pipeline {
       githubPush()
     }*/
 
-   /* triggers {
-            pollSCM('') //Empty quotes tells it to build on a push
-    }*/
-
     triggers {
             issueCommentTrigger('.*test this please.*')
         }
