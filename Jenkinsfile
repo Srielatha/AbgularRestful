@@ -10,6 +10,7 @@ pipeline {
             pollSCM('') //Empty quotes tells it to build on a push
     }
 
+
     parameters {
         choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA', 'deploy-Uat', 'deploy-prod'], description: 'Select destination environment for deployment')
     }
