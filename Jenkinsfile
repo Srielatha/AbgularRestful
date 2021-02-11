@@ -6,9 +6,13 @@ pipeline {
       githubPush()
     }*/
 
-    triggers {
+   /* triggers {
             pollSCM('') //Empty quotes tells it to build on a push
-    }
+    }*/
+
+    triggers {
+            issueCommentTrigger('.*test this please.*')
+        }
 
     parameters {
         choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA', 'deploy-Uat', 'deploy-prod'], description: 'Select destination environment for deployment')
