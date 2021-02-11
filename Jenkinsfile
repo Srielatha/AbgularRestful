@@ -62,7 +62,7 @@
     }
 }  */
 
-multibranchPipelineJob('example') {
+multibranchPipelineJob('job-dsl-plugin_multibranch') {
 branchSources {
     github {
         id('d7f3341d-cf21-47e0-9cc9-584ffb82e769') // IMPORTANT: use a constant and unique identifier
