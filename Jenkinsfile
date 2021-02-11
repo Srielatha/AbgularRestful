@@ -27,7 +27,7 @@ triggers {
             }
             steps {
                 script {
-                    def pass = passwordParameter description: "Enter password"
+                    //def pass = passwordParameter description: "Enter password"
                     if (stageparam == "deploy-ICP") {
                                          echo "deploying"
 
