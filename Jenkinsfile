@@ -3,16 +3,12 @@ pipeline {
     agent any
 
 
-    /*triggers {
-    githubPush()
-    } */
-
-     triggers {
-            pollSCM('') //Empty quotes tells it to build on a push
-     }
+    triggers {
+      githubPush()
+    }
 
     parameters {
-        choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA'], description: 'Select destination environment for deployment')
+        choice(name: 'stageparam', choices: ['build', 'deploy-dev', 'deploy-devAuto', 'deploy-devBA', 'deploy-Uat', 'deploy-prod'], description: 'Select destination environment for deployment')
     }
 
     stages {
@@ -24,11 +20,7 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            when {
-              beforeAgent true
-              branch 'master'
-            }
+        stage('Deploy-lower-env') {
             steps {
                 script {
                     //def pass = passwordParameter description: "Enter password"
@@ -42,6 +34,23 @@ pipeline {
                 }
             }
         }
+
+         stage('Deploy-higher-env') {
+                    when {
+                      beforeAgent true
+                      branch 'master'
+                    }
+                    steps {
+                        script {
+                            //def pass = passwordParameter description: "Enter password"
+                            if (stageparam == "deploy-Uat") {
+                               echo "deploying"
+                            } else if (stageparam == "deploy-prod") {
+                               echo "deploying"
+                            }
+                        }
+                    }
+                }
     }
 }
 
