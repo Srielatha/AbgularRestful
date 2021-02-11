@@ -26,7 +26,7 @@ stages {
         }
         steps {
             script {
-                //def pass = passwordParameter description: "Enter password"
+                def pass = passwordParameter description: "Enter password"
                 if (Deploy-Env == "deploy-dev") {
                    echo "deploying it to ${Deploy-Env}"
                 } else if (Deploy-Env == "deploy-devAuto") {
