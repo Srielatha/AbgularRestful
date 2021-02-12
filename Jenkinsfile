@@ -105,7 +105,7 @@ pipeline {
             steps {
                 script {
                     def valuesYaml = readYaml (file: './config.yaml')
-                    if(DEPLOY_ENV == "dev") {
+                    if(DEPLOY_ENV == "dev|dev-auto") {
                         echo ENV
                         echo SUBENV
                         echo AWS_ACCOUNT
