@@ -84,7 +84,7 @@ pipeline {
         choice(
             name: 'DEPLOY_ENV',
             description: 'Select destination environment for deployment',
-            choices: ['dev', 'dev-auto', 'prod']
+            choices: ['dev', 'dev-auto', 'test', 'prod']
         )
     }
 
@@ -92,7 +92,6 @@ pipeline {
         def valuesYaml = readYaml (file: './config.yaml')
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
          ENV = valuesYaml.get('envName').get(params.DEPLOY_ENV)
-         SUBENV = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('subEnv')
          AWS_ACCOUNT = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('aws_account')
          VPC_ENDPOINT_ID = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('vpc_account_id')
          JENKINS_ROLE = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('jenkins_role')
@@ -107,7 +106,6 @@ pipeline {
                     def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "dev" || DEPLOY_ENV == "dev-auto") {
                         echo ENV
-                        echo SUBENV
                         echo AWS_ACCOUNT
                         echo VPC_ENDPOINT_ID
                         echo "deploying"
@@ -115,7 +113,9 @@ pipeline {
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                      }*/
-                    }
+                    } else {
+                            throw new Exception('Unrecognized deployment environment selected when determining ENV property: ' + deployEnv);
+                        }
                 }
             }
         }
