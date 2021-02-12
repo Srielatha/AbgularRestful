@@ -79,7 +79,6 @@ pipeline {
     }
 
     agent any
-    def valuesYaml = readYaml (file: './config.yaml')
 
     parameters {
         choice(
@@ -90,6 +89,7 @@ pipeline {
     }
 
     environment {
+        def valuesYaml = readYaml (file: './config.yaml')
         // reference maven install location
         MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
