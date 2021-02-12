@@ -63,9 +63,9 @@
         }
     }
 } */
-def loadValuesYaml(x){
+def loadValuesYaml(){
     def valuesYaml = readYaml (file: './config.yaml')
-    return valuesYaml[x];
+    return valuesYaml[];
 }
 
 pipeline {
