@@ -1,4 +1,4 @@
-ENV : dev
+envName : dev
 SUBENV:
   - auto
   - ba
