@@ -113,9 +113,7 @@ pipeline {
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                      }*/
-                    } else {
-                            throw new Exception('Unrecognized deployment environment selected when determining ENV property: ' + DEPLOY_ENV);
-                        }
+                    }
                 }
             }
         }
