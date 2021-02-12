@@ -1,0 +1,14 @@
+dev:
+  ENV : dev
+  SUBENV:
+  - auto
+  - ba
+  AWS_ACCOUNT : 248847483068
+  VPC_ENDPOINT_ID : vpce-0d2538e8b49acd2c5
+  JENKINS_ROLE : adp-dev-iad-eskm-jenkins-role
+prod:
+  ENV : prod
+  SUBENV:
+  AWS_ACCOUNT : prod-248847483068
+  VPC_ENDPOINT_ID : prod-vpce-0d2538e8b49acd2c5
+  JENKINS_ROLE : prod-adp-dev-iad-eskm-jenkins-role

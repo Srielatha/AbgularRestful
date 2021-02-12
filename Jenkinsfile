@@ -63,10 +63,10 @@
         }
     }
 } */
-//def loadValuesYaml(x){
-//    def valuesYaml = readYaml (file: './chart/config.yaml')
-//    return valuesYaml[x];
-//}
+def loadValuesYaml(x){
+    def valuesYaml = readYaml (file: './src/main/resources/config.yaml')
+    return valuesYaml[x];
+}
 
 pipeline {
     options {
@@ -86,14 +86,6 @@ pipeline {
             description: 'Select destination environment for deployment',
             choices: ['dev', 'dev-auto', 'prod']
         )
-    }
-
-    stage('Read YAML file') {
-        steps {
-            script{ datas = readYaml (file: 'config.yml') }
-            echo datas.ear_file.deploy.toString()
-
-        }
     }
 
     environment {
