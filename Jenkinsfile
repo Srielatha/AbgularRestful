@@ -186,7 +186,8 @@ pipeline {
                 script {
                     if(DEPLOY_ENV == "dev") {
                         echo "deploying"
-                        echo loadValuesYaml("${DEPLOY_ENV}".toString().'ENV')
+                        echo test = DEPLOY_ENV
+                        echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                      }*/
