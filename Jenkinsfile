@@ -94,7 +94,7 @@ pipeline {
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
          echo loadValuesYaml
         // set environment specific properties used by Jenkins/CDK for deployment
-          ENV = loadValuesYaml.get('envName').get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
+          ENV = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
           //SUBENV = 'subEnv'
 //        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
 //        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
