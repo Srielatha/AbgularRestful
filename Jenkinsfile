@@ -63,9 +63,9 @@
         }
     }
 } */
-def loadValuesYaml(x){
+def loadValuesYaml(){
     def valuesYaml = readYaml (file: './config.yaml')
-    return valuesYaml[x];
+    return valuesYaml;
 }
 
 pipeline {
@@ -92,7 +92,7 @@ pipeline {
         // reference maven install location
         MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
-          ENV = loadValuesYaml('ENV')
+          //ENV = loadValuesYaml('ENV')
 //        SUBENV = params.DEPLOY_ENV.loadValuesYaml('SUBENV')
 //        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
 //        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
@@ -186,7 +186,7 @@ pipeline {
                 script {
                     if(DEPLOY_ENV == "dev") {
                         echo "deploying"
-                        echo ENV
+                        echo loadValuesYaml()
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                      }*/
@@ -206,7 +206,7 @@ pipeline {
                         //prompt for password in console log
                         def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
                         echo "deploying"
-                        echo ENV
+                        echo loadValuesYaml()
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                         }*/
