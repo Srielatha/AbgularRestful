@@ -91,10 +91,10 @@ pipeline {
     environment {
         def valuesYaml = readYaml (file: './config.yaml')
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
-         ENV = (valuesYaml.get('envName').get(params.DEPLOY_ENV) !=null) ? valuesYaml.get('envName').get(params.DEPLOY_ENV) : null
-         AWS_ACCOUNT = (valuesYaml.get('envName').get(params.DEPLOY_ENV).get('aws_account') != null) ? valuesYaml.get('envName').get(params.DEPLOY_ENV).get('aws_account') : null
-//         VPC_ENDPOINT_ID = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('vpc_account_id')
-//         JENKINS_ROLE = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('jenkins_role')
+         ENV = valuesYaml.get('envName').get(params.DEPLOY_ENV)
+         AWS_ACCOUNT = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('aws_account')
+         VPC_ENDPOINT_ID = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('vpc_account_id')
+         JENKINS_ROLE = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('jenkins_role')
         // set job success/failure email receipients
          JOB_REPORTING_EMAILS = 'eskm-developers@adp.org'
     }
@@ -107,7 +107,7 @@ pipeline {
                     if(DEPLOY_ENV == "dev" || DEPLOY_ENV == "dev-auto") {
                         echo ENV
                         echo AWS_ACCOUNT
-                        //echo VPC_ENDPOINT_ID
+                        echo VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
@@ -134,7 +134,7 @@ pipeline {
                         echo ENV
                         echo SUBENV
                         echo AWS_ACCOUNT
-                        //echo VPC_ENDPOINT_ID
+                        echo VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo ENV
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
