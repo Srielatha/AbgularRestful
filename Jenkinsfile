@@ -109,7 +109,7 @@ pipeline {
                     def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "dev") {
                         echo ENV
-                        echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
+                        //echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
@@ -132,7 +132,7 @@ pipeline {
                         //prompt for password in console log
                         def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
                         echo "deploying"
-                        echo ENV
+                        //echo ENV
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                         }*/
