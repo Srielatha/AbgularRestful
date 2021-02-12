@@ -89,7 +89,7 @@ pipeline {
     }
 
     environment {
-
+        def valuesYaml = readYaml (file: './config.yaml')
         // reference maven install location
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
@@ -185,7 +185,7 @@ pipeline {
         stage('CDK Deploy Stack') {
             steps {
                 script {
-                    def valuesYaml = readYaml (file: './config.yaml')
+
                     if(DEPLOY_ENV == "dev") {
                         echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
                         echo "deploying"
