@@ -78,10 +78,11 @@ pipeline {
         skipDefaultCheckout true
     }
 
-    agent any
+    agent {
 
-    node {
-        datas = readYaml file: './config.yaml'
+        node {
+            datas = readYaml file: './config.yaml'
+        }
     }
 
     parameters {
