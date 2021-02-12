@@ -93,10 +93,10 @@ pipeline {
         MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
         ENV = params.DEPLOY_ENV.loadValuesYaml('ENV')
-        SUBENV = loadValuesYaml(${params.DEPLOY_ENV}.'SUBENV')
-        AWS_ACCOUNT = loadValuesYaml(${params.DEPLOY_ENV}.'AWS_ACCOUNT')
-        VPC_ENDPOINT_ID = loadValuesYaml(${params.DEPLOY_ENV}.'VPC_ENDPOINT_ID')
-        JENKINS_ROLE = loadValuesYaml(${params.DEPLOY_ENV}.'JENKINS_ROLE')
+        SUBENV = params.DEPLOY_ENV.loadValuesYaml('SUBENV')
+        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
+        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
+        JENKINS_ROLE = params.DEPLOY_ENV.loadValuesYaml('JENKINS_ROLE')
         // set job success/failure email receipients
         //JOB_REPORTING_EMAILS = 'eskm-developers@adp.org'
     }
