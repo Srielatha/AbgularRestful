@@ -184,7 +184,7 @@ pipeline {
         stage('CDK Deploy Stack') {
             steps {
                 script {
-                    if(DEPLOY_ENV == ${ENV.dev}) {
+                    if(ENV.dev == DEPLOY_ENV) {
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
