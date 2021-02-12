@@ -64,7 +64,7 @@
     }
 } */
 def loadValuesYaml(x){
-    def valuesYaml = readYaml (file: './src/main/resources/config.yaml')
+    def valuesYaml = readYaml (file: './config.yaml')
     return valuesYaml[x];
 }
 
