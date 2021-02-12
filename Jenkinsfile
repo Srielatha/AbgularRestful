@@ -93,8 +93,8 @@ pipeline {
         // reference maven install location
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
-          ENV = ${params.DEPLOY_ENV}
-//        SUBENV = params.DEPLOY_ENV.loadValuesYaml('SUBENV')
+          ENV = 'envName'
+          SUBENV = 'subEnv'
 //        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
 //        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
 //        JENKINS_ROLE = params.DEPLOY_ENV.loadValuesYaml('JENKINS_ROLE')
@@ -185,8 +185,9 @@ pipeline {
         stage('CDK Deploy Stack') {
             steps {
                 script {
+                    def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "dev") {
-                        echo ENV
+                        echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
@@ -204,6 +205,7 @@ pipeline {
             }
             steps {
                 script {
+                    def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "prod") {
                         //prompt for password in console log
                         def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
