@@ -109,7 +109,7 @@ pipeline {
                         echo ENV
                         echo SUBENV
                         echo AWS_ACCOUNT
-                        ech VPC_ENDPOINT_ID
+                        echo VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
@@ -134,7 +134,7 @@ pipeline {
                         echo ENV
                         echo SUBENV
                         echo AWS_ACCOUNT
-                        ech VPC_ENDPOINT_ID
+                        echo VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo ENV
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
