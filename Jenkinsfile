@@ -114,7 +114,7 @@ pipeline {
                             sh 'cdk deploy --require-approval never'
                      }*/
                     } else {
-                            throw new Exception('Unrecognized deployment environment selected when determining ENV property: ' + deployEnv);
+                            throw new Exception('Unrecognized deployment environment selected when determining ENV property: ' + DEPLOY_ENV);
                         }
                 }
             }
