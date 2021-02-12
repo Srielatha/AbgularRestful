@@ -93,10 +93,10 @@ pipeline {
         MAVEN_HOME = '/opt/apache-maven-3.6.3/'
         // set environment specific properties used by Jenkins/CDK for deployment
         ENV = params.DEPLOY_ENV.loadValuesYaml('ENV')
-        SUBENV = params.DEPLOY_ENV.loadValuesYaml('SUBENV')
-        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
-        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
-        JENKINS_ROLE = params.DEPLOY_ENV.loadValuesYaml('JENKINS_ROLE')
+//        SUBENV = params.DEPLOY_ENV.loadValuesYaml('SUBENV')
+//        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
+//        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
+//        JENKINS_ROLE = params.DEPLOY_ENV.loadValuesYaml('JENKINS_ROLE')
         // set job success/failure email receipients
         //JOB_REPORTING_EMAILS = 'eskm-developers@adp.org'
     }
@@ -186,9 +186,7 @@ pipeline {
                 script {
                     if(DEPLOY_ENV == "dev") {
                         echo "deploying"
-                        echo JENKINS_ROLE
-                        echo AWS_ACCOUNT
-                        echo VPC_ENDPOINT_ID
+                        echo ENV
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                      }*/
@@ -208,9 +206,7 @@ pipeline {
                         //prompt for password in console log
                         def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
                         echo "deploying"
-                        echo JENKINS_ROLE
-                        echo AWS_ACCOUNT
-                        echo VPC_ENDPOINT_ID
+                        echo ENV
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
                             sh 'cdk deploy --require-approval never'
                         }*/
