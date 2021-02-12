@@ -92,12 +92,12 @@ pipeline {
         def valuesYaml = readYaml (file: './config.yaml')
          MAVEN_HOME = '/opt/apache-maven-3.6.3/'
          ENV = valuesYaml.get('envName').get(params.DEPLOY_ENV)
-          //SUBENV = 'subEnv'
-//        AWS_ACCOUNT = params.DEPLOY_ENV.loadValuesYaml('AWS_ACCOUNT')
-//        VPC_ENDPOINT_ID = params.DEPLOY_ENV.loadValuesYaml('VPC_ENDPOINT_ID')
-//        JENKINS_ROLE = params.DEPLOY_ENV.loadValuesYaml('JENKINS_ROLE')
+         SUBENV = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('subEnv')
+         AWS_ACCOUNT = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('aws_account')
+         VPC_ENDPOINT_ID = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('vpc_account_id')
+         JENKINS_ROLE = valuesYaml.get('envName').get(params.DEPLOY_ENV).get('jenkins_role')
         // set job success/failure email receipients
-        //JOB_REPORTING_EMAILS = 'eskm-developers@adp.org'
+         JOB_REPORTING_EMAILS = 'eskm-developers@adp.org'
     }
 
     stages {
@@ -107,8 +107,9 @@ pipeline {
                     def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "dev") {
                         echo ENV
-                        echo valuesYaml.get('envName').get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
-                        //echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
+                        echo SUBENV
+                        echo AWS_ACCOUNT
+                        ech VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
                         /* withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
@@ -129,7 +130,11 @@ pipeline {
                     def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "prod") {
                         //prompt for password in console log
-                        def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
+                        //def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
+                        echo ENV
+                        echo SUBENV
+                        echo AWS_ACCOUNT
+                        ech VPC_ENDPOINT_ID
                         echo "deploying"
                         //echo ENV
                         /*withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
