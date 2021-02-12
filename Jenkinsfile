@@ -109,6 +109,7 @@ pipeline {
                     def valuesYaml = readYaml (file: './config.yaml')
                     if(DEPLOY_ENV == "dev") {
                         echo ENV
+                        echo valuesYaml.get('envName').get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
                         //echo valuesYaml.get(ENV).get(params.DEPLOY_ENV).get('AWS_ACCOUNT')
                         echo "deploying"
                         //echo loadValuesYaml(test.'ENV')
