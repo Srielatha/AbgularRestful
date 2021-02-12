@@ -79,9 +79,7 @@ pipeline {
     }
 
     agent {
-        node {
             datas = readYaml (file: './config.yaml')
-        }
     }
 
     parameters {
@@ -107,85 +105,6 @@ pipeline {
     }
 
     stages {
-        /* stage('Artifactory Configuration') {
-             steps {
-                 rtServer (
-                     id: 'ARTIFACTORY_SERVER',
-                     url: 'https://artifactory.adp.org/artifactory',
-                     credentialsId: 'jenkins-artifactory'
-                 )
- 
-                 rtMavenDeployer (
-                     id: 'MAVEN_DEPLOYER',
-                     serverId: 'ARTIFACTORY_SERVER',
-                     releaseRepo: 'adp-release',
-                     snapshotRepo: 'adp-snapshot'
-                 )
- 
-                 rtMavenResolver (
-                     id: 'MAVEN_RESOLVER',
-                     serverId: 'ARTIFACTORY_SERVER',
-                     releaseRepo: 'libs-release',
-                     snapshotRepo: 'libs-snapshot'
-                 )
- 
-                 rtNpmResolver (
-                     id: 'NPM_RESOLVER',
-                     serverId: 'ARTIFACTORY_SERVER',
-                     repo: 'npm-virtual'
-                 )
-             }
-         }
- 
-         stage('Build Java Artifacts') {
-             steps {
-                 rtMavenRun (
-                     pom: 'pom.xml',
-                     // run maven in non-interactive mode (-B), forcing snapshot update (-U)
-                     goals: 'clean package -B -U -DskipTests',
-                     resolverId: 'MAVEN_RESOLVER'
-                     // ELK 2020-11-23 removing deployment of artifacts, currently getting 405 errors
-                     //deployerId: "MAVEN_DEPLOYER",
-                 )
-             }
-         }
- 
-         stage('Java Unit Tests') {
-             steps {
-                 // ELK 2020-11-18 check if a testng plugin is available in adp jenkins
-                 rtMavenRun (
-                     pom: 'pom.xml',
-                     goals: 'test',
-                     resolverId: 'MAVEN_RESOLVER'
-                 )
-             }
-         }
- 
-         stage('Infrastructure - NPM Dependencies') {
-             steps {
-                 sh 'npm ci'
-             }
-         }
- 
-         stage('Infrastructure - Compile Typescript') {
-             steps {
-                 sh 'npm run build'
-             }
-         }
- 
-         stage('Sonar Scan') {
-             steps {
-                 // ELK 2020-11-18 investigate how to incorporate typescript code analysis
-                 withSonarQubeEnv('sonarqube') {
-                     rtMavenRun (
-                         pom: 'pom.xml',
-                         goals: 'sonar:sonar',
-                         resolverId: 'MAVEN_RESOLVER'
-                     )
-                 }
-             }
-         } */
-
         stage('CDK Deploy Stack') {
             steps {
                 script {
@@ -223,86 +142,7 @@ pipeline {
                 }
             }
         }
-
-        /*
-        stage('Monitoring Tools - NPM install deps') {
-            steps {
-                writeFile file: '.tmp/package.json', text: '{"dependencies":{"typescript":"^4.0.3","@adp-cdk/cdk-cw-dashboard": "^0.1.2","aws-cdk": "^1.70.0"}}'
-                sh """cat .tmp/package.json"""
-                rtNpmInstall (
-                    resolverId: 'NPM_RESOLVER',
-                    path: '.tmp'
-                )
-            }
-        }
-
-        stage('Monitoring Tools - CDK Diff Check') {
-            steps {
-                withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
-                    script {
-                        try {
-                            dir(".tmp/node_modules/@adp-cdk/cdk-cw-dashboard") {
-                                if(env.SUBENV) {
-                                    sh """${WORKSPACE}/.tmp/node_modules/aws-cdk/bin/cdk diff --context sub_env=${SUBENV} --context source_stack=adp-${ENV}-iad-eskm-ecs-${SUBENV}-stack"""
-                                } else {
-                                    sh """${WORKSPACE}/.tmp/node_modules/aws-cdk/bin/cdk diff --context source_stack=adp-${ENV}-iad-eskm-ecs-stack"""
-                                }
-                            }
-                        } catch (e) {
-                            echo e.getMessage()
-                            echo "Error detected in cdk diff for monitoring stack - but we do not care while it is a pilot programm."
-                        }
-                    }
-                }
-            }
-        }
-
-        stage('Monitoring Tools - CDK Deploy') {
-            steps {
-                withAWS(role:"${JENKINS_ROLE}", roleAccount:"${AWS_ACCOUNT}", duration: 3600, roleSessionName: 'jenkins-eskm-session', region:'us-east-1') {
-                    script {
-                        try {
-                            dir(".tmp/node_modules/@adp-cdk/cdk-cw-dashboard") {
-                                if(env.SUBENV) {
-                                    sh """${WORKSPACE}/.tmp/node_modules/aws-cdk/bin/cdk deploy --context sub_env=${SUBENV} --context source_stack=adp-${ENV}-iad-eskm-ecs-${SUBENV}-stack"""
-                                } else {
-                                    sh """${WORKSPACE}/.tmp/node_modules/aws-cdk/bin/cdk deploy --context source_stack=adp-${ENV}-iad-eskm-ecs-stack"""
-                                }
-                            }
-                        } catch (e) {
-                            echo e.getMessage()
-                            echo "Error detected in cdk deploy for monitoring stack - but we do not care while it is a pilot programm."
-                        }
-                    }
-                }
-            }
-        }
-        */
     }
-
-    /*post {
-        failure {
-            emailext(
-                to: """${JOB_REPORTING_EMAILS}""",
-                subject: """Build FAILED in Jenkins: ${env.JOB_NAME} - (${params.DEPLOY_ENV} deployment) - #${env.BUILD_NUMBER}""",
-                body: """Check console output at ${env.BUILD_URL} to view the results. \n\n ${currentBuild.changeSets}"""
-            )
-        }
-        unstable {
-            emailext(
-                to: """${JOB_REPORTING_EMAILS}""",
-                subject: """UNSTABLE build in Jenkins: ${env.JOB_NAME} - (${params.DEPLOY_ENV} deployment) - #${env.BUILD_NUMBER}""",
-                body: """Check console output at ${env.BUILD_URL} to view the results. \n\n ${currentBuild.changeSets}"""
-            )
-        }
-        success {
-            emailext(
-                to: """${JOB_REPORTING_EMAILS}""",
-                subject: """Build SUCCESS in Jenkins: ${env.JOB_NAME} - (${params.DEPLOY_ENV} deployment) - #${env.BUILD_NUMBER}""",
-                body: """Check console output at ${env.BUILD_URL} to view the results. \n\n ${currentBuild.changeSets}"""
-            )
-        }
-    }*/
 }
 
 /**
