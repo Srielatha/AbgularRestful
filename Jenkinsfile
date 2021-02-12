@@ -184,7 +184,7 @@ pipeline {
         stage('CDK Deploy Stack') {
             steps {
                 script {
-                    if(DEPLOY_ENV == "dev") {
+                    if(DEPLOY_ENV == ENV) {
                         echo "deploying"
                         echo test = DEPLOY_ENV
                         //echo loadValuesYaml(test.'ENV')
