@@ -130,7 +130,6 @@ pipeline {
                         //prompt for password in console log
                         //def pass = input  parameters: [password(name: 'PASSWORD', defaultValue: 'SECRET', description: 'A secret password') ]
                         echo ENV
-                        echo SUBENV
                         echo AWS_ACCOUNT
                         echo VPC_ENDPOINT_ID
                         echo "deploying"
